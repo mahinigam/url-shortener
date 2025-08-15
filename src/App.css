@@ -1,0 +1,15 @@
+/* App-specific styles - minimal to avoid conflicts with Material-UI theme */
+
+/* Remove default margins and ensure full height */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Utility class for glass effects */
+.glass-backdrop {
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
