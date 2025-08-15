@@ -3,9 +3,10 @@
 > A sleek, production-ready URL shortener built with React 19, TypeScript, and Material-UI featuring a beautiful glassmorphism design.
 
 ![URL Shortener](https://img.shields.io/badge/React-19-blue?style=flat-square&logo=react)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=flat-square&logo=typescript)
-![Material-UI](https://img.shields.io/badge/Material--UI-5.0-blue?style=flat-square&logo=mui)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.8-blue?style=flat-square&logo=typescript)
+![Material-UI](https://img.shields.io/badge/Material--UI-5.17-blue?style=flat-square&logo=mui)
 ![Vite](https://img.shields.io/badge/Vite-7.0-purple?style=flat-square&logo=vite)
+![Testing](https://img.shields.io/badge/Testing-Vitest-green?style=flat-square&logo=vitest)
 
 ## Features
 
@@ -37,11 +38,13 @@
 
 ## Technology Stack
 
-- **Frontend**: React 19 + TypeScript
-- **UI Framework**: Material-UI v5 (customized with glassmorphism theme)
+- **Frontend**: React 19 + TypeScript 5.8
+- **UI Framework**: Material-UI v5.17 (customized with glassmorphism theme)
 - **Typography**: Inter font family
-- **Routing**: React Router DOM v7
+- **Routing**: React Router DOM v7.6
 - **Build Tool**: Vite v7
+- **Testing**: Vitest v3.2 + Testing Library
+- **Linting**: ESLint v9 with TypeScript support
 - **Styling**: Material-UI + Emotion + Custom glassmorphism effects
 - **State Management**: React Context + useReducer
 - **Design**: Black/white glassmorphism with backdrop blur effects
@@ -49,14 +52,14 @@
 ## Getting Started
 
 ### Prerequisites
-- Node.js (version 16 or higher)
-- npm or yarn package manager
+- Node.js (version 18 or higher)
+- npm (comes with Node.js)
 
 ### Installation
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/mahin/url-shortener.git
+   git clone https://github.com/mahinigam/url-shortener.git
    cd url-shortener
    ```
 
@@ -72,17 +75,22 @@
 
 4. Open your browser and navigate to:
    ```
-   http://localhost:3000
+   http://localhost:5173
    ```
 
 ### Available Scripts
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
+- `npm run dev` - Start development server (Vite)
+- `npm run build` - Build for production (TypeScript + Vite)
 - `npm run preview` - Preview production build
 - `npm run lint` - Run ESLint
-- `npm run test` - Run tests
+- `npm run lint:fix` - Run ESLint with auto-fix
+- `npm run test` - Run tests with Vitest
+- `npm run test:watch` - Run tests in watch mode
+- `npm run test:ui` - Run tests with UI interface
+- `npm run test:coverage` - Run tests with coverage report
 - `npm run type-check` - TypeScript type checking
+- `npm run security:audit` - Run npm security audit
 
 ## Usage
 
@@ -104,7 +112,7 @@
 
 ### Using Shortened URLs
 
-1. Share your shortened URL (e.g., `http://localhost:3000/abc123`)
+1. Share your shortened URL (e.g., `http://localhost:5173/abc123`)
 2. When accessed, users see a glassmorphism redirect page
 3. Automatic redirection occurs after 1.5 seconds
 4. Clicks are automatically tracked with location data
@@ -123,7 +131,7 @@ The application integrates with an external logging service:
 
 - **Default Validity**: 30 minutes
 - **Maximum URLs**: 5 per batch
-- **Port**: 3000
+- **Development Port**: 5173 (Vite default)
 - **Shortcode Length**: 6 characters (auto-generated)
 
 ## Architecture
@@ -132,17 +140,33 @@ The application integrates with an external logging service:
 ```
 src/
 ├── components/          # Reusable UI components (glassmorphism styled)
+│   ├── PerformanceMonitor.tsx  # Performance monitoring component
 │   ├── UrlCard.tsx     # URL display card with glass effects
 │   └── UrlForm.tsx     # URL input form with labels above fields
 ├── contexts/           # React context providers
+│   └── UrlContext.tsx  # URL state management
 ├── hooks/              # Custom React hooks
+│   ├── useHealthCheck.ts    # Health check monitoring
+│   └── useUrls.ts      # URL management hook
 ├── pages/              # Page components with consistent theming
 │   ├── UrlShortenerPage.tsx    # Main page with glassmorphism
 │   ├── StatisticsPage.tsx      # Analytics with colorful icons
 │   └── RedirectPage.tsx        # Redirect handling
 ├── theme/              # Material-UI theme (black/white glassmorphism)
+│   └── index.ts        # Theme configuration
 ├── types/              # TypeScript type definitions
+│   └── index.ts        # Application types
 ├── utils/              # Utility functions and helpers
+│   ├── logger.ts       # Logging utilities
+│   ├── monitoring.ts   # Performance monitoring
+│   ├── rateLimiter.ts  # Rate limiting logic
+│   ├── security.ts     # Security utilities
+│   └── urlUtils.ts     # URL processing utilities
+├── test/               # Test files
+│   ├── App.test.tsx    # Main app tests
+│   ├── setup.ts        # Test setup configuration
+│   ├── UrlForm.test.tsx # Form component tests
+│   └── urlUtils.test.ts # Utility function tests
 └── App.tsx             # Main application with navigation & footer
 ```
 
@@ -192,7 +216,7 @@ The application uses React Context with useReducer for state management:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/url-shortener.git
+git clone https://github.com/mahinigam/url-shortener.git
 
 # Navigate to project directory
 cd url-shortener
@@ -208,12 +232,17 @@ npm run dev
 
 ## Available Scripts
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
+- `npm run dev` - Start development server (Vite)
+- `npm run build` - Build for production (TypeScript + Vite)
 - `npm run preview` - Preview production build
-- `npm run test` - Run test suite
+- `npm run test` - Run test suite with Vitest
+- `npm run test:watch` - Run tests in watch mode
+- `npm run test:ui` - Run tests with UI interface
+- `npm run test:coverage` - Run tests with coverage report
 - `npm run lint` - Run ESLint
+- `npm run lint:fix` - Run ESLint with auto-fix
 - `npm run type-check` - Run TypeScript type checking
+- `npm run security:audit` - Run npm security audit
 
 ## Browser Support
 
@@ -228,6 +257,9 @@ npm run dev
 - Memoized calculations for statistics
 - Debounced search/filter operations
 - Optimized re-renders with React.memo
+- Performance monitoring with custom hooks
+- Bundle optimization with Vite
+- Lazy loading of components
 
 ## Security Features
 
@@ -235,6 +267,8 @@ npm run dev
 - XSS protection through React's built-in escaping
 - Safe external link opening
 - Input sanitization
+- Rate limiting implementation
+- Security utilities for data validation
 
 ## Contributing
 
@@ -242,9 +276,33 @@ npm run dev
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
 3. Make your changes
 4. Run tests and linting (`npm test && npm run lint`)
-5. Commit your changes (`git commit -m 'Add amazing feature'`)
-6. Push to the branch (`git push origin feature/amazing-feature`)
-7. Open a Pull Request
+5. Run type checking (`npm run type-check`)
+6. Commit your changes (`git commit -m 'Add amazing feature'`)
+7. Push to the branch (`git push origin feature/amazing-feature`)
+8. Open a Pull Request
+
+## Development
+
+### Code Quality Tools
+- **ESLint**: Code linting with TypeScript support
+- **TypeScript**: Strict type checking
+- **Vitest**: Fast unit testing
+- **Testing Library**: Component testing utilities
+
+### Testing
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests with UI
+npm run test:ui
+
+# Generate coverage report
+npm run test:coverage
+```
 
 ## License
 
