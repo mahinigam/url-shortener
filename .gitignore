@@ -29,3 +29,13 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# GitHub workflows (if you don't want them)
+.github/
+
+# Docker and deployment files
+Dockerfile
+docker-compose.yml
+nginx.conf
+DEPLOYMENT.md
+SECURITY.md
